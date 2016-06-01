@@ -81,7 +81,7 @@ exports.upload = function(req, res) {
     var newVinyl = new Vinyl();
     var fileimage = req.middlewareStorage.fileimage;
 
-    newVinyl.image = '/assets/images/uploads/' + fileimage;
+    newVinyl.image = './assets/images/uploads/' + fileimage;
     newVinyl.email = req.body.email;
     newVinyl.linkURL = req.body.linkURL;
     newVinyl.title = req.body.title;
