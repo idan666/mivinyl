@@ -35,7 +35,7 @@ module.exports = function(app) {
     app.use(methodOverride());
 
     app.use(multer({
-        dest: '../client/assets/images/uploads/',
+        dest: './client/assets/images/uploads/',
         rename: function(fieldname, filename) {
             return filename + Date.now();
         },
