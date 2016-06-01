@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="user-looks-title">
+    <h2>My Vinyls:
+      <span class="label label-info">{{ userVinyls.length }}</span> Vinyls Submitted</h2>
+  </div>
+  <div class="spacer"></div>
+
+  <div class="show-no-looks"
+          ng-if="noVinyls()">
+          <h3>No Vinyls Added, Why don't you <a ui-sref="main">add one</a>?</h>
+        </div>
+
+    <!-- Angular Grid -->
+    <ul class="dynamic-grid angular-grid"
+          angular-grid="vinyls"
+          grid-width="300"
+          gutter-size="10"
+          angular-grid-id="gallery"
+          refresh-on-img-load="true" >
+      <li data-ng-repeat="vinyl in userVinyls"
+          class="grid"
+          ng-cloak>
+        <a ui-sref="vinyl ({ vinylId: vinyl._id })"
+            class="vinylLink">
+          <img ng-src="{{ vinyl.image }}"
+                  class="grid-img"
+                  data-actual-width="{{ vinyl.actualWidth }}"
+                  data-actual-height="{{ vinyl.actualHeight }}" />
+          <div class="look-description-trim">
+            {{ vinyl.description.substr(0,100) }}
+          </div>
+
+          <div class="titleClass">
+            {{ vinyl.title }}
+          </div>
+        </a>
+        <a href="#"
+             class="like-look"
+             ng-click="addLike(vinyl)">
+          <i class="fa fa-2x fa-thumbs-o-up pull-left icon-like"></i></a>
+            <span class="likeCount">{{ vinyl.upVotes }}</span>
+                <a href="#"
+                     ng-click="editVinyl(vinyl)"
+                     class="edit-look"
+                     data-animation="am-fade-and-scale"
+                     data-template-url="app/myVinyls/edit_vinyl_modal.html"
+                     bs-modal="showModal">
+                  <i class="fa fa-2x fa-pencil pull-right icon-edit"></i></a>
+                <a href="#"
+                     class="edit-look"
+                     ng-click="delete(vinyl)">
+                   <i class="fa fa-2x fa-trash-o pull-right icon-edit"
+                       data-title="DELETE Item - Cannot be Undone"
+                       bs-tooltip></i></a>
+      </li>
+    </ul>
+  </div>
