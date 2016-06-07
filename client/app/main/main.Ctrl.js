@@ -161,7 +161,11 @@
                     $scope.showScrapeDetails = false;
                 });
         }
-
+        
+        $scope.getAllBuckets = function(){
+            
+        }
+        
         $scope.uploadPic = function(file){
             Upload.upload({
                 url: 'api/vinyl/upload',

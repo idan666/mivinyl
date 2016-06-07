@@ -46,6 +46,7 @@ module.exports = function(app) {
             console.log(file.fieldname + ' uploaded to ' + file.path);
             var fileimage = file.name;
             req.middlewareStorage = {
+                filepath: file.path,
                 fileimage: fileimage
             }
         }

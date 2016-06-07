@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var Vinyl = require('./vinyl.model');
+var knox = require('knox'); // S3 Client
 var path = require('path');
 var utils = require('../../utils/utils.js');
 
@@ -80,8 +81,32 @@ exports.scrapeUpload = function(req, res) {
 exports.upload = function(req, res) {
     var newVinyl = new Vinyl();
     var fileimage = req.middlewareStorage.fileimage;
+    var filepath = req.middlewareStorage.filepath;
+    var client = knox.createClient({
+        key: process.env.AWS_ACCESS_KEY_ID,
+        secret: process.env.AWS_SECRET_ACCESS_KEY,
+        bucket: process.env.S3_BUCKET,
+        region: process.env.S3_REGION
+    });
+    
+    var s3Headers = {
+      'x-amz-acl': 'public-read'
+    };
+    
+    var random = utils.randomizer(32, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+        
+    client.putFile(req.files.file.path, '/images/uploads/' + random + '.jpg', s3Headers, function(err, res){
+        if(err) throw err;
+        
+        console.log('upload to s3 success');
+        // res.json(res)
+    });
+    
 
-    newVinyl.image = './assets/images/uploads/' + fileimage;
+
+    // newVinyl.image = './assets/images/uploads/' + fileimage;
+    
+    newVinyl.image = 'http://' + client.endpoint + '/' + client.bucket + '/images/uploads/' + random + '.jpg';
     newVinyl.email = req.body.email;
     newVinyl.linkURL = req.body.linkURL;
     newVinyl.title = req.body.title;

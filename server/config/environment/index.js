@@ -59,6 +59,14 @@ var all = {
     clientSecret: process.env.TWITTER_SECRET || 'secret',
     callbackURL:  (process.env.DOMAIN || '') + '/auth/twitter/callback'
   },
+  
+  s3: {
+    key: process.env.AWS_ACCESS_KEY_ID,
+    secret: process.env.AWS_SECRET_ACCESS_KEY,
+    bucket: process.env.S3_BUCKET,
+    region: process.env.S3_REGION,
+    // baseURL: 'http://s3-' + process.env.S3_REGION || 'us-west-2'  + '.amazonaws.com/' + process.env.S3_BUCKET || 'mivinylbucket'
+  },
 
 };
 

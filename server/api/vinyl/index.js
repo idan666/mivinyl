@@ -10,6 +10,8 @@ router.post('/scrapeUpload', auth.isAuthenticated(), controller.scrapeUpload);
 //FILE HANDLING MULTER
 router.post('/upload', auth.isAuthenticated(), controller.upload);
 
+
+
 //update look
 router.put('/:id', auth.isAuthenticated(), controller.update);
 //Adding Up Votes
